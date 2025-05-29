@@ -5,103 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تهنئة خاصة</title>
 <style>
-  /* ستايل الصفحة الأساسية */
-  body {
-    margin: 0;
+  body, html {
+    margin: 0; padding: 0; height: 100%; width: 100%;
     background-color: black;
-    color: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
-    text-align: right;
-    overflow-x: hidden;
+    color: white;
     font-size: 10px;
+    overflow-x: hidden;
   }
-  #textContent {
-    position: relative;
-    z-index: 10;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    text-shadow: 0 0 5px red;
-  }
-  #mainImage {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
+  #lockScreen {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  #lockScreenImage {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     z-index: 1;
   }
-  #giftButton {
+  #lockScreenInputWrapper {
     position: relative;
-    z-index: 10;
-    background-color: red;
-    color: white;
-    padding: 12px 25px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    user-select: none;
-    margin-bottom: 20px;
-  }
-
-  /* شاشة كلمة السر */
-  #passwordScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('images/M22.jpg') no-repeat center center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1000;
-    transition: opacity 1s ease;
-  }
-  #passwordScreen.fadeOut {
-    opacity: 0;
-    pointer-events: none;
-  }
-  #passwordScreen input {
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    margin-bottom: 10px;
-    width: 200px;
+    z-index: 2;
     text-align: center;
   }
-  #passwordScreen button {
-    padding: 10px 20px;
-    font-size: 16px;
+  #passwordInput {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+  }
+  #submitBtn {
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 18px;
     background-color: red;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
   }
-  #passwordError {
-    color: #ffcccc;
-    margin-top: 8px;
-    font-size: 14px;
-    height: 18px;
+
+  /* باقي المحتوى بعد إلغاء القفل */
+  #content {
+    padding: 20px;
+    text-align: right;
+    line-height: 1.6;
+    text-shadow: 0 0 5px red;
   }
 </style>
 </head>
 <body>
 
-<!-- شاشة كلمة السر -->
-<div id="passwordScreen">
-  <input type="password" id="passwordInput" placeholder="أدخل كلمة السر" autocomplete="off" />
-  <button id="submitPassword">دخول</button>
-  <div id="passwordError"></div>
+<!-- شاشة القفل -->
+<div id="lockScreen">
+  <img id="lockScreenImage" src="images/M22.jpg" alt="شاشة القفل" />
+  <div id="lockScreenInputWrapper">
+    <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور" />
+    <br/>
+    <button id="submitBtn">دخول</button>
+  </div>
 </div>
 
-<!-- محتوى الصفحة -->
-<div id="textContent" style="margin-top:0;">
+<!-- المحتوى الأساسي -->
+<div id="content" style="display:none;">
   <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
   كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
   <p>أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
@@ -110,39 +86,36 @@
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
   شفتك تكبر في قلبي يوم بعد يوم،<br />
   مو بس كزوج، بل كأب يُحتذى به.</p>
-  <p style="color: red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
+  <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
+
+  <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" style="width:100vw; height:100vh; object-fit:cover; position: fixed; top: 0; left: 0; z-index:1;" />
+  <button id="giftButton" style="position: relative; z-index: 10; background-color: red; color: white; padding: 12px 25px; cursor: pointer; font-weight: bold; border-radius: 5px; user-select: none; margin-bottom: 20px;">افتح الهدية</button>
+
+  <audio id="giftAudio" src="audio/M11.mp3" loop></audio>
 </div>
 
-<img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
-<button id="giftButton">افتح الهدية</button>
-
-<audio id="giftAudio" src="audio/M11.mp3" loop></audio>
-
 <script>
-  // حماية بكلمة السر
-  const passwordScreen = document.getElementById('passwordScreen');
+  const lockScreen = document.getElementById('lockScreen');
   const passwordInput = document.getElementById('passwordInput');
-  const submitButton = document.getElementById('submitPassword');
-  const passwordError = document.getElementById('passwordError');
+  const submitBtn = document.getElementById('submitBtn');
+  const content = document.getElementById('content');
 
-  const correctPassword = 'احبك';
-
-  submitButton.onclick = () => {
-    const entered = passwordInput.value.trim();
-    if (entered === correctPassword) {
-      // كلمة السر صحيحة: تلاشي شاشة كلمة السر
-      passwordScreen.classList.add('fadeOut');
+  submitBtn.addEventListener('click', () => {
+    const pass = passwordInput.value.trim();
+    if (pass === "احبك") {
+      // تأثير التلاشي
+      lockScreen.style.transition = "opacity 1.5s ease";
+      lockScreen.style.opacity = 0;
       setTimeout(() => {
-        passwordScreen.style.display = 'none';
-      }, 1000);
+        lockScreen.style.display = "none";
+        content.style.display = "block";
+      }, 1500);
     } else {
-      passwordError.textContent = 'كلمة السر خاطئة، حاول مرة أخرى';
-      passwordInput.value = '';
-      passwordInput.focus();
+      alert("كلمة المرور خاطئة");
     }
-  };
+  });
 
-  // كود الصور والصوت كما هو عندك
+  // باقي كود فتح الهدية:
   const images = [
     "images/M1.jpg",
     "images/M2.jpg",
@@ -157,8 +130,6 @@
   const mainImage = document.getElementById('mainImage');
   const giftButton = document.getElementById('giftButton');
   const giftAudio = document.getElementById('giftAudio');
-
-  giftAudio.loop = true;
 
   giftButton.onclick = () => {
     giftAudio.play().catch(error => {
