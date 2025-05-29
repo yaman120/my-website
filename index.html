@@ -13,13 +13,17 @@
     overflow-x: hidden;
   }
 
-  /* المحتوى بعد إلغاء القفل */
+  /* المحتوى الأساسي */
   #content {
+    position: relative;
+    z-index: 10; /* يظهر فوق الصورة */
     padding: 20px;
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    display: block; /* تم إظهاره مباشرة */
+    display: block;
+    background-color: rgba(0,0,0,0.6); /* خلفية شفافة لتحسين وضوح النص */
+    color: white;
   }
 
   /* صورة الخلفية للمحتوى */
