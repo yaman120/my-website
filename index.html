@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تهنئة خاصة</title>
 <style>
-  body, html {
+  html, body {
     margin: 0; padding: 0; height: 100%; width: 100%;
     background-color: black;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    font-size: 10px;
     overflow-x: hidden;
   }
   #lockScreen {
@@ -54,32 +53,36 @@
     border-radius: 8px;
     cursor: pointer;
   }
-
-  /* باقي المحتوى بعد إلغاء القفل */
+  /* المحتوى بعد فك القفل */
   #content {
-    position: relative;       /* مهم ليظهر فوق الصورة */
-    z-index: 10;              /* عالي عشان النص فوق الصورة */
+    display: none;
     padding: 20px;
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.4);  /* خلفية شفافة للنص */
+    position: relative;
+    z-index: 1;
   }
-
+  #content p {
+    margin: 15px 0;
+  }
+  #specialText {
+    color: red;
+    text-shadow: 0 0 5px white;
+    font-weight: bold;
+    font-size: 24px;
+  }
   #mainImage {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
     position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    top: 0; left: 0;
+    z-index: 0;
   }
-
   #giftButton {
     position: relative;
-    z-index: 10;
+    z-index: 2;
     background-color: red;
     color: white;
     padding: 12px 25px;
@@ -104,7 +107,7 @@
 </div>
 
 <!-- المحتوى الأساسي -->
-<div id="content" style="display:none;">
+<div id="content">
   <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
   كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
   <p>أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
@@ -113,7 +116,7 @@
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
   شفتك تكبر في قلبي يوم بعد يوم،<br />
   مو بس كزوج، بل كأب يُحتذى به.</p>
-  <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
+  <p id="specialText">امٌ حُوَرَ</p>
 
   <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
@@ -130,7 +133,6 @@
   submitBtn.addEventListener('click', () => {
     const pass = passwordInput.value.trim();
     if (pass === "احبك") {
-      // تأثير التلاشي
       lockScreen.style.transition = "opacity 1.5s ease";
       lockScreen.style.opacity = 0;
       setTimeout(() => {
@@ -139,10 +141,12 @@
       }, 1500);
     } else {
       alert("كلمة المرور خاطئة");
+      passwordInput.value = "";
+      passwordInput.focus();
     }
   });
 
-  // كود فتح الهدية:
+  // فتح الهدية (تبديل الصور وتشغيل الصوت)
   const images = [
     "images/M1.jpg",
     "images/M2.jpg",
@@ -159,9 +163,7 @@
   const giftAudio = document.getElementById('giftAudio');
 
   giftButton.onclick = () => {
-    giftAudio.play().catch(error => {
-      console.log('تعذر تشغيل الصوت:', error);
-    });
+    giftAudio.play().catch(e => console.log('تعذر تشغيل الصوت:', e));
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
