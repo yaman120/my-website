@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تهنئة خاصة</title>
+<style>
+  body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    text-align: right;
+    overflow-x: hidden;
+  }
+  #textContent {
+    position: relative;
+    z-index: 10;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .red-glow {
+    color: red;
+    font-weight: bold;
+    text-shadow:
+      0 0 5px white,
+      0 0 10px white,
+      0 0 20px white;
+  }
+
+  .white-glow {
+    color: white;
+    font-weight: bold;
+    text-shadow:
+      0 0 5px red,
+      0 0 10px red,
+      0 0 20px red;
+  }
+
+  #mainImage {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1;
+  }
+  #giftButton {
+    position: relative;
+    z-index: 10;
+    background-color: red;
+    color: white;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    user-select: none;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="textContent">
+  <p class="red-glow">زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
+  كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
+
+  <p class="white-glow">أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
+  لأنك الحضن اللي نرجع له كلنا،<br />
+  والأمان اللي يحاوطني ويحاوطهم بدون ما يطلبوا.</p>
+
+  <p class="red-glow">في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
+  شفتك تكبر في قلبي يوم بعد يوم،<br />
+  مو بس كزوج، بل كأب يُحتذى به.</p>
+</div>
+
+<img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
+
+<button id="giftButton">افتح الهدية</button>
+
+<audio id="giftAudio" src="audio/M11.mp3"></audio>
+
+<script>
+  const images = [
+    "images/M1.jpg",
+    "images/M2.jpg",
+    "images/M3.jpg",
+    "images/M4.jpg",
+    "images/M5.jpg",
+    "images/M6.jpg"
+  ];
+
+  let currentIndex = 0;
+  let intervalId = null;
+
+  const mainImage = document.getElementById('mainImage');
+  const giftButton = document.getElementById('giftButton');
+  const giftAudio = document.getElementById('giftAudio');
+
+  giftAudio.loop = true;
+
+  giftButton.onclick = () => {
+    giftAudio.play().catch(error => {
+      console.log('تعذر تشغيل الصوت:', error);
+    });
+
+    if (intervalId) clearInterval(intervalId);
+
+    intervalId = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      mainImage.src = images[currentIndex];
+    }, 4000);
+
+    giftButton.style.display = 'none';
+  };
+</script>
+
+</body>
+</html>
