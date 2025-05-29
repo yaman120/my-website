@@ -1,49 +1,60 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تهنئة خاصة</title>
-<style>
-  body, html {
-    margin: 0; padding: 0; height: 100%; width: 100%;
-    background-color: black;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    overflow-x: hidden;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تهنئة خاصة</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: black;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      font-size: 10px;
+    }
 
-  /* المحتوى الأساسي */
-  #content {
-    position: relative;
-    z-index: 1000; /* تأكد أن النص فوق الخلفية */
-    padding: 20px;
-    text-align: right;
-    line-height: 1.6;
-    text-shadow: 0 0 5px red;
-    background-color: rgba(0, 0, 0, 0.7); /* خلفية شبه شفافة */
-    min-height: 100vh;
-    box-sizing: border-box;
-    background-image: url('images/M1.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
+    /* المحتوى الأساسي */
+    #content {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+      text-align: right;
+      line-height: 1.6;
+      text-shadow: 0 0 5px red;
+      display: block;
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+    }
 
-  /* زر الهدية فوق المحتوى */
-  #giftButton {
-    position: relative;
-    z-index: 1001;
-    background-color: red;
-    color: white;
-    padding: 12px 25px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    user-select: none;
-    margin-bottom: 20px;
-  }
-</style>
+    /* صورة الخلفية للمحتوى */
+    #mainImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* زر الهدية */
+    #giftButton {
+      position: relative;
+      z-index: 10;
+      background-color: red;
+      color: white;
+      padding: 12px 25px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      user-select: none;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
 
@@ -59,17 +70,17 @@
   مو بس كزوج، بل كأب يُحتذى به.</p>
   <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 
+  <img id="mainImage" src="images/M3.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
 
   <audio id="giftAudio" src="audio/M11.mp3" loop></audio>
 </div>
 
 <script>
-  // كود فتح الهدية وتغيير الصور
   const images = [
-    "images/M1.jpg",
-    "images/M2.jpg",
     "images/M3.jpg",
+    "images/M2.jpg",
+    "images/M1.jpg",
     "images/M4.jpg",
     "images/M5.jpg",
     "images/M6.jpg"
@@ -77,7 +88,7 @@
   let currentIndex = 0;
   let intervalId = null;
 
-  const content = document.getElementById('content');
+  const mainImage = document.getElementById('mainImage');
   const giftButton = document.getElementById('giftButton');
   const giftAudio = document.getElementById('giftAudio');
 
@@ -88,7 +99,7 @@
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
-      content.style.backgroundImage = `url('${images[currentIndex]}')`;
+      mainImage.src = images[currentIndex];
     }, 4000);
     giftButton.style.display = 'none';
   };
