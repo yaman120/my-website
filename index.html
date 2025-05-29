@@ -12,47 +12,6 @@
     color: white;
     overflow-x: hidden;
   }
-  #lockScreen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  #lockScreenImage {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
-  #lockScreenInputWrapper {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-  #passwordInput {
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-  }
-  #submitBtn {
-    margin-top: 15px;
-    padding: 10px 25px;
-    font-size: 18px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
 
   /* المحتوى بعد إلغاء القفل */
   #content {
@@ -60,7 +19,7 @@
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    display: none; /* مخفي بالبداية */
+    display: block; /* تم إظهاره مباشرة */
   }
 
   /* صورة الخلفية للمحتوى */
@@ -91,16 +50,6 @@
 </head>
 <body>
 
-<!-- شاشة القفل -->
-<div id="lockScreen">
-  <img id="lockScreenImage" src="images/M22.jpg" alt="شاشة القفل" />
-  <div id="lockScreenInputWrapper">
-    <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور" />
-    <br/>
-    <button id="submitBtn">دخول</button>
-  </div>
-</div>
-
 <!-- المحتوى الأساسي -->
 <div id="content">
   <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
@@ -120,27 +69,6 @@
 </div>
 
 <script>
-  const lockScreen = document.getElementById('lockScreen');
-  const passwordInput = document.getElementById('passwordInput');
-  const submitBtn = document.getElementById('submitBtn');
-  const content = document.getElementById('content');
-
-  submitBtn.addEventListener('click', () => {
-    const pass = passwordInput.value.trim();
-    if (pass === "احبك") {
-      // تلاشي شاشة القفل
-      lockScreen.style.transition = "opacity 1.5s ease";
-      lockScreen.style.opacity = 0;
-
-      setTimeout(() => {
-        lockScreen.style.display = "none";
-        content.style.display = "block";  // اظهار المحتوى بعد التلاشي
-      }, 1500);
-    } else {
-      alert("كلمة المرور خاطئة");
-    }
-  });
-
   // كود فتح الهدية وتغيير الصور
   const images = [
     "images/M1.jpg",
