@@ -13,22 +13,22 @@
     padding: 20px;
     text-align: right;
     overflow-x: hidden;
+    font-size: 10px; /* تصغير الخط */
   }
   #textContent {
     position: relative;
-    top: 0;
-    font-size: 10px;  /* تصغير الخط */
+    z-index: 10;
     line-height: 1.6;
     margin-bottom: 20px;
-    color: white;
-    text-shadow: 0 0 3px red; /* توهج أحمر خفيف */
+    text-shadow: 0 0 5px red; /* توهج أحمر خفيف */
   }
   #mainImage {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     z-index: 1;
   }
   #giftButton {
@@ -46,48 +46,51 @@
 </style>
 </head>
 <body>
-  <div id="textContent">
-    <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
-    كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
-    <p>أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
-    لأنك الحضن اللي نرجع له كلنا،<br />
-    والأمان اللي يحاوطني ويحاوطهم بدون ما يطلبوا.</p>
-    <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
-    شفتك تكبر في قلبي يوم بعد يوم،<br />
-    مو بس كزوج، بل كأب يُحتذى به.</p>
-  </div>
+<div id="textContent" style="margin-top:0;">
+  <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
+  كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
+  <p>أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
+  لأنك الحضن اللي نرجع له كلنا،<br />
+  والأمان اللي يحاوطني ويحاوطهم بدون ما يطلبوا.</p>
+  <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
+  شفتك تكبر في قلبي يوم بعد يوم،<br />
+  مو بس كزوج، بل كأب يُحتذى به.</p>
+</div>
 
-  <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
-  <button id="giftButton">افتح الهدية</button>
-  <audio id="giftAudio" src="audio/M11.mp3"></audio>
+<img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
+<button id="giftButton">افتح الهدية</button>
 
-  <script>
-    const images = [
-      "images/M1.jpg",
-      "images/M2.jpg",
-      "images/M3.jpg",
-      "images/M4.jpg",
-      "images/M5.jpg",
-      "images/M6.jpg"
-    ];
-    let currentIndex = 0;
-    let intervalId = null;
-    const mainImage = document.getElementById('mainImage');
-    const giftButton = document.getElementById('giftButton');
-    const giftAudio = document.getElementById('giftAudio');
+<audio id="giftAudio" src="audio/M11.mp3" loop></audio>
 
-    giftAudio.loop = true;
-    giftButton.onclick = () => {
-      giftAudio.play().catch(error => {
-        console.log('تعذر تشغيل الصوت:', error);
-      });
-      if (intervalId) clearInterval(intervalId);
-      intervalId = setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        mainImage.src = images[currentIndex];
-      }, 4000);
-      giftButton.style.display = 'none';
-    };
-  </script>
+<script>
+  const images = [
+    "images/M1.jpg",
+    "images/M2.jpg",
+    "images/M3.jpg",
+    "images/M4.jpg",
+    "images/M5.jpg",
+    "images/M6.jpg"
+  ];
+  let currentIndex = 0;
+  let intervalId = null;
+
+  const mainImage = document.getElementById('mainImage');
+  const giftButton = document.getElementById('giftButton');
+  const giftAudio = document.getElementById('giftAudio');
+
+  giftAudio.loop = true;
+
+  giftButton.onclick = () => {
+    giftAudio.play().catch(error => {
+      console.log('تعذر تشغيل الصوت:', error);
+    });
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      mainImage.src = images[currentIndex];
+    }, 4000);
+    giftButton.style.display = 'none';
+  };
+</script>
 </body>
 </html>
