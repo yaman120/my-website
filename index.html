@@ -6,31 +6,14 @@
   <title>تهنئة خاصة</title>
   <style>
     body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
+      margin: 0; padding: 0; height: 100%; width: 100%;
       background-color: black;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       color: white;
       overflow-x: hidden;
-      font-size: 10px;
     }
 
-    /* المحتوى الأساسي */
-    #content {
-      position: relative;
-      z-index: 10;
-      padding: 20px;
-      text-align: right;
-      line-height: 1.6;
-      text-shadow: 0 0 5px red;
-      display: block;
-      background-color: rgba(0,0,0,0.6);
-      color: white;
-    }
-
-    /* صورة الخلفية للمحتوى */
+    /* صورة الخلفية */
     #mainImage {
       width: 100vw;
       height: 100vh;
@@ -41,10 +24,22 @@
       z-index: 1;
     }
 
-    /* زر الهدية */
+    /* المحتوى فوق الصورة */
+    #content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      text-align: right;
+      line-height: 1.6;
+      text-shadow: 0 0 5px red;
+      display: block;
+      background-color: rgba(0, 0, 0, 0.6);
+      font-size: 10px;
+    }
+
     #giftButton {
       position: relative;
-      z-index: 10;
+      z-index: 3;
       background-color: red;
       color: white;
       padding: 12px 25px;
@@ -53,26 +48,28 @@
       border-radius: 5px;
       user-select: none;
       margin-bottom: 20px;
+      font-size: 10px;
     }
   </style>
 </head>
 <body>
 
-<!-- المحتوى الأساسي -->
+<!-- صورة الخلفية -->
+<img id="mainImage" src="images/M3.jpg" alt="صورة تهنئة" />
+
+<!-- المحتوى فوق الصورة -->
 <div id="content">
   <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
-  كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
+    كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
   <p>أحبك لأنك زوجي، وأحبك أكثر لأنك أب رائع لبناتي،<br />
-  لأنك الحضن اللي نرجع له كلنا،<br />
-  والأمان اللي يحاوطني ويحاوطهم بدون ما يطلبوا.</p>
+    لأنك الحضن اللي نرجع له كلنا،<br />
+    والأمان اللي يحاوطني ويحاوطهم بدون ما يطلبوا.</p>
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
-  شفتك تكبر في قلبي يوم بعد يوم،<br />
-  مو بس كزوج، بل كأب يُحتذى به.</p>
+    شفتك تكبر في قلبي يوم بعد يوم،<br />
+    مو بس كزوج، بل كأب يُحتذى به.</p>
   <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 
-  <img id="mainImage" src="images/M3.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
-
   <audio id="giftAudio" src="audio/M11.mp3" loop></audio>
 </div>
 
