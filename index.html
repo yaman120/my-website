@@ -16,31 +16,24 @@
   /* المحتوى الأساسي */
   #content {
     position: relative;
-    z-index: 10; /* يظهر فوق الصورة */
+    z-index: 1000; /* تأكد أن النص فوق الخلفية */
     padding: 20px;
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    display: block;
-    background-color: rgba(0,0,0,0.6); /* خلفية شفافة لتحسين وضوح النص */
-    color: white;
-  }
-
-  /* صورة الخلفية للمحتوى */
-  #mainImage {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7); /* خلفية شبه شفافة */
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-image: url('images/M1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
   /* زر الهدية فوق المحتوى */
   #giftButton {
     position: relative;
-    z-index: 10;
+    z-index: 1001;
     background-color: red;
     color: white;
     padding: 12px 25px;
@@ -66,7 +59,6 @@
   مو بس كزوج، بل كأب يُحتذى به.</p>
   <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 
-  <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
 
   <audio id="giftAudio" src="audio/M11.mp3" loop></audio>
@@ -85,7 +77,7 @@
   let currentIndex = 0;
   let intervalId = null;
 
-  const mainImage = document.getElementById('mainImage');
+  const content = document.getElementById('content');
   const giftButton = document.getElementById('giftButton');
   const giftAudio = document.getElementById('giftAudio');
 
@@ -96,7 +88,7 @@
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
-      mainImage.src = images[currentIndex];
+      content.style.backgroundImage = `url('${images[currentIndex]}')`;
     }, 4000);
     giftButton.style.display = 'none';
   };
