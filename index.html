@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تهنئة خاصة</title>
 <style>
+  /* ستايل الصفحة الأساسية */
   body {
     margin: 0;
     background-color: black;
@@ -13,14 +14,14 @@
     padding: 20px;
     text-align: right;
     overflow-x: hidden;
-    font-size: 10px; /* تصغير الخط */
+    font-size: 10px;
   }
   #textContent {
     position: relative;
     z-index: 10;
     line-height: 1.6;
     margin-bottom: 20px;
-    text-shadow: 0 0 5px red; /* توهج أحمر خفيف */
+    text-shadow: 0 0 5px red;
   }
   #mainImage {
     width: 100vw;
@@ -43,14 +44,63 @@
     user-select: none;
     margin-bottom: 20px;
   }
-  .signature {
-    color: red;
-    text-shadow: 0 0 5px white;
-    font-weight: bold;
+
+  /* شاشة كلمة السر */
+  #passwordScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('images/M22.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: opacity 1s ease;
+  }
+  #passwordScreen.fadeOut {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #passwordScreen input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  #passwordScreen button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #passwordError {
+    color: #ffcccc;
+    margin-top: 8px;
+    font-size: 14px;
+    height: 18px;
   }
 </style>
 </head>
 <body>
+
+<!-- شاشة كلمة السر -->
+<div id="passwordScreen">
+  <input type="password" id="passwordInput" placeholder="أدخل كلمة السر" autocomplete="off" />
+  <button id="submitPassword">دخول</button>
+  <div id="passwordError"></div>
+</div>
+
+<!-- محتوى الصفحة -->
 <div id="textContent" style="margin-top:0;">
   <p>زوجي الحبيب، يا فرحة عمري وسندي في الدنيا،<br />
   كل عام وأنت بخير، وكل عيد وأنت العيد لنا.</p>
@@ -60,8 +110,7 @@
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
   شفتك تكبر في قلبي يوم بعد يوم،<br />
   مو بس كزوج، بل كأب يُحتذى به.</p>
-  
-  <p class="signature">أمٌ حُوَرَ</p>
+  <p style="color: red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 </div>
 
 <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
@@ -70,6 +119,30 @@
 <audio id="giftAudio" src="audio/M11.mp3" loop></audio>
 
 <script>
+  // حماية بكلمة السر
+  const passwordScreen = document.getElementById('passwordScreen');
+  const passwordInput = document.getElementById('passwordInput');
+  const submitButton = document.getElementById('submitPassword');
+  const passwordError = document.getElementById('passwordError');
+
+  const correctPassword = 'احبك';
+
+  submitButton.onclick = () => {
+    const entered = passwordInput.value.trim();
+    if (entered === correctPassword) {
+      // كلمة السر صحيحة: تلاشي شاشة كلمة السر
+      passwordScreen.classList.add('fadeOut');
+      setTimeout(() => {
+        passwordScreen.style.display = 'none';
+      }, 1000);
+    } else {
+      passwordError.textContent = 'كلمة السر خاطئة، حاول مرة أخرى';
+      passwordInput.value = '';
+      passwordInput.focus();
+    }
+  };
+
+  // كود الصور والصوت كما هو عندك
   const images = [
     "images/M1.jpg",
     "images/M2.jpg",
@@ -99,5 +172,6 @@
     giftButton.style.display = 'none';
   };
 </script>
+
 </body>
 </html>
