@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تهنئة خاصة</title>
 <style>
-  html, body {
+  body, html {
     margin: 0; padding: 0; height: 100%; width: 100%;
     background-color: black;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -53,36 +53,31 @@
     border-radius: 8px;
     cursor: pointer;
   }
-  /* المحتوى بعد فك القفل */
+
+  /* المحتوى بعد إلغاء القفل */
   #content {
-    display: none;
     padding: 20px;
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    position: relative;
-    z-index: 1;
+    display: none; /* مخفي بالبداية */
   }
-  #content p {
-    margin: 15px 0;
-  }
-  #specialText {
-    color: red;
-    text-shadow: 0 0 5px white;
-    font-weight: bold;
-    font-size: 24px;
-  }
+
+  /* صورة الخلفية للمحتوى */
   #mainImage {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
     position: fixed;
-    top: 0; left: 0;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    z-index: 1;
   }
+
+  /* زر الهدية فوق المحتوى */
   #giftButton {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     background-color: red;
     color: white;
     padding: 12px 25px;
@@ -116,7 +111,7 @@
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
   شفتك تكبر في قلبي يوم بعد يوم،<br />
   مو بس كزوج، بل كأب يُحتذى به.</p>
-  <p id="specialText">امٌ حُوَرَ</p>
+  <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 
   <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
@@ -133,20 +128,20 @@
   submitBtn.addEventListener('click', () => {
     const pass = passwordInput.value.trim();
     if (pass === "احبك") {
+      // تلاشي شاشة القفل
       lockScreen.style.transition = "opacity 1.5s ease";
       lockScreen.style.opacity = 0;
+
       setTimeout(() => {
         lockScreen.style.display = "none";
-        content.style.display = "block";
+        content.style.display = "block";  // اظهار المحتوى بعد التلاشي
       }, 1500);
     } else {
       alert("كلمة المرور خاطئة");
-      passwordInput.value = "";
-      passwordInput.focus();
     }
   });
 
-  // فتح الهدية (تبديل الصور وتشغيل الصوت)
+  // كود فتح الهدية وتغيير الصور
   const images = [
     "images/M1.jpg",
     "images/M2.jpg",
@@ -163,7 +158,9 @@
   const giftAudio = document.getElementById('giftAudio');
 
   giftButton.onclick = () => {
-    giftAudio.play().catch(e => console.log('تعذر تشغيل الصوت:', e));
+    giftAudio.play().catch(error => {
+      console.log('تعذر تشغيل الصوت:', error);
+    });
     if (intervalId) clearInterval(intervalId);
     intervalId = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
