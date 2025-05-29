@@ -13,7 +13,6 @@
     font-size: 10px;
     overflow-x: hidden;
   }
-  /* شاشة القفل */
   #lockScreen {
     position: fixed;
     top: 0; left: 0;
@@ -56,28 +55,31 @@
     cursor: pointer;
   }
 
-  /* المحتوى بعد إلغاء القفل */
+  /* باقي المحتوى بعد إلغاء القفل */
   #content {
+    position: relative;       /* مهم ليظهر فوق الصورة */
+    z-index: 10;              /* عالي عشان النص فوق الصورة */
     padding: 20px;
     text-align: right;
     line-height: 1.6;
     text-shadow: 0 0 5px red;
-    position: relative;
-    z-index: 10;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);  /* خلفية شفافة للنص */
   }
 
   #mainImage {
-    position: fixed;
-    top: 0; left: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 1;
   }
 
   #giftButton {
     position: relative;
-    z-index: 20;
+    z-index: 10;
     background-color: red;
     color: white;
     padding: 12px 25px;
@@ -86,12 +88,6 @@
     border-radius: 5px;
     user-select: none;
     margin-bottom: 20px;
-  }
-
-  /* الجملة باللون الأحمر مع توهج أبيض */
-  #specialText {
-    color: red;
-    text-shadow: 0 0 5px white;
   }
 </style>
 </head>
@@ -117,7 +113,7 @@
   <p>في عيونك شفت حنان الأب، وفي أفعالك شفت الرجولة اللي تُحَب،<br />
   شفتك تكبر في قلبي يوم بعد يوم،<br />
   مو بس كزوج، بل كأب يُحتذى به.</p>
-  <p id="specialText">امٌ حُوَرَ</p>
+  <p style="color:red; text-shadow: 0 0 5px white;">امٌ حُوَرَ</p>
 
   <img id="mainImage" src="images/M1.jpg" alt="صورة تهنئة" />
   <button id="giftButton">افتح الهدية</button>
